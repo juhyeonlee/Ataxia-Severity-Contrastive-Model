@@ -174,7 +174,7 @@ class ContrastiveModel:
     def encode(self, data, mask=None, encoding_window=None, causal=False, sliding_length=None, sliding_padding=0, batch_size=None):
         ''' Compute representations using the model.
         
-        Args:
+        Parameters:
             data (numpy.ndarray): This should have a shape of (n_instance, n_timestamps, n_features). All missing data should be set to NaN.
             mask (str): The mask used by encoder can be specified with this parameter. This can be set to 'binomial', 'continuous', 'all_true', 'all_false' or 'mask_last'.
             encoding_window (Union[str, int]): When this param is specified, the computed representation would the max pooling over this window. This can be set to 'full_series', 'multiscale' or an integer specifying the pooling kernel size.
@@ -202,64 +202,9 @@ class ContrastiveModel:
             output = []
             for batch in loader:
                 x = batch[0]
-                if sliding_length is not None:
-                    reprs = []
-                    if n_samples < batch_size:
-                        calc_buffer = []
-                        calc_buffer_l = 0
-                    for i in range(0, ts_l, sliding_length):
-                        l = i - sliding_padding
-                        r = i + sliding_length + (sliding_padding if not causal else 0)
-                        x_sliding = torch_pad_nan(
-                            x[:, max(l, 0) : min(r, ts_l)],
-                            left=-l if l<0 else 0,
-                            right=r-ts_l if r>ts_l else 0,
-                            dim=1
-                        )
-                        if n_samples < batch_size:
-                            if calc_buffer_l + n_samples > batch_size:
-                                out = self._eval_with_pooling(
-                                    torch.cat(calc_buffer, dim=0),
-                                    mask,
-                                    slicing=slice(sliding_padding, sliding_padding+sliding_length),
-                                    encoding_window=encoding_window
-                                )
-                                reprs += torch.split(out, n_samples)
-                                calc_buffer = []
-                                calc_buffer_l = 0
-                            calc_buffer.append(x_sliding)
-                            calc_buffer_l += n_samples
-                        else:
-                            out = self._eval_with_pooling(
-                                x_sliding,
-                                mask,
-                                slicing=slice(sliding_padding, sliding_padding+sliding_length),
-                                encoding_window=encoding_window
-                            )
-                            reprs.append(out)
-
-                    if n_samples < batch_size:
-                        if calc_buffer_l > 0:
-                            out = self._eval_with_pooling(
-                                torch.cat(calc_buffer, dim=0),
-                                mask,
-                                slicing=slice(sliding_padding, sliding_padding+sliding_length),
-                                encoding_window=encoding_window
-                            )
-                            reprs += torch.split(out, n_samples)
-                            calc_buffer = []
-                            calc_buffer_l = 0
-                    
-                    out = torch.cat(reprs, dim=1)
-                    if encoding_window == 'full_series':
-                        out = F.max_pool1d(
-                            out.transpose(1, 2).contiguous(),
-                            kernel_size = out.size(1),
-                        ).squeeze(1)
-                else:
-                    out = self._eval_with_pooling(x, mask, encoding_window=encoding_window)
-                    if encoding_window == 'full_series':
-                        out = out.squeeze(1)
+                out = self._eval_with_pooling(x, mask, encoding_window=encoding_window)
+                if encoding_window == 'full_series':
+                    out = out.squeeze(1)
                         
                 output.append(out)
                 

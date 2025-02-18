@@ -1,0 +1,7 @@
+/datasets/*[!.py]
+.ipynb_checkpoints
+__pycache__
+training/*
+scripts/_nohup
+.rsync-filter
+FNT_data/*
