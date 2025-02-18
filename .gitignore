@@ -5,3 +5,6 @@ training/*
 scripts/_nohup
 .rsync-filter
 FNT_data/*
+.idea
+seglen_performance_random_rotall
+.DS_Store
