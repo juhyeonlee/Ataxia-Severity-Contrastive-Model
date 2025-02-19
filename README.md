@@ -8,13 +8,15 @@ The model code is based on the implementation of the paper [TS2Vec: Towards Univ
 ## Requirements
 
 * Python 3.9
-* numpy==1.21.2
-* pandas==1.3.5
-* PyYAML==6.0
-* scikit_learn==1.0.2
-* scipy==1.7.3
-* seaborn==0.11.2
-* torch==1.11.0
+* matplotlib==3.6.2
+* numpy==1.23.5
+* pandas==2.0.3
+* PyYAML==6.0.2
+* scikit_learn==1.2.0
+* scipy==1.9.3
+* seaborn==0.13.2
+* tabulate==0.9.0
+* torch==1.12.1
 
 
 To install the dependencies, run:
