@@ -1,13 +1,15 @@
+import os
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 
 
-def load_ftn(cv_num, seg_length=1280, is_train=True, overlap_test=128):
+def load_ftn(data_folder, cv_num, seg_length=1280, is_train=True, overlap_test=128):
     """
     Load and segment velocity data for the finger-to-nose task, returning a cross-validation dataset.
 
     Parameters:
+    - data_folder: Folder name where the dataset is stored
     - cv_num: Number of cross-validation folds.
     - seg_length: Length of each segment (in samples).
     - is_train: Boolean indicating whether the data is for training (True) or testing (False).
@@ -30,7 +32,7 @@ def load_ftn(cv_num, seg_length=1280, is_train=True, overlap_test=128):
         - 'timestamp': Start and end indices of each segment.
     """
     # Load velocity time-series
-    data = np.load('./FNT_data/DecomposedMovements_norotation.npz', allow_pickle=True)
+    data = np.load(os.path.join(data_folder, '/DecomposedMovements_norotation.npz'), allow_pickle=True)
     vel_all = data['full_vel'][()]
 
     # Load clinician-scored severity and demographic information

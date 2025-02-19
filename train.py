@@ -26,12 +26,14 @@ def run_train(config_path):
     freq = cfg.get('freq', 128)
     seg_length_sec = cfg.get('seg_length_sec', 10)
     cv_num = cfg.get('cv_num', 5)
+    data_folder = cfg.get('data_folder', 'FNT_data')
     seg_length = freq * seg_length_sec
+
 
     device = init_dl_program(gpu, seed=seed, max_threads=max_threads, deterministic=False)
 
     print('Loading data... ', end='')
-    train_set = load_ftn(cv_num, seg_length, is_train=True)
+    train_set = load_ftn(data_folder, cv_num, seg_length, is_train=True)
 
     config = dict(batch_size=batch_size, lr=lr, output_dims=repr_dims)
 
