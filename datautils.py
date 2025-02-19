@@ -32,11 +32,12 @@ def load_ftn(data_folder, cv_num, seg_length=1280, is_train=True, overlap_test=1
         - 'timestamp': Start and end indices of each segment.
     """
     # Load velocity time-series
-    data = np.load(os.path.join(data_folder, '/DecomposedMovements_norotation.npz'), allow_pickle=True)
+    data = np.load(os.path.join(data_folder, 'DecomposedMovements_norotation.npz'), allow_pickle=True)
     vel_all = data['full_vel'][()]
 
     # Load clinician-scored severity and demographic information
-    labels = pd.read_csv('/work/pi_sunghoonlee_umass_edu/Juhyeon/FNT_data/FNF_labels.csv')
+    labels = pd.read_csv(os.path.join(data_folder, 'FNF_labels.csv'))
+
 
     diagnoses_dict = {
         (int(row['ID'][:5]), row['ID'][6:]): row

@@ -9,4 +9,4 @@ max_threads: 8
 freq: 128
 seg_length_sec: 10
 cv_num: 5
-data_folder: '.'
+data_folder: '/work/pi_sunghoonlee_umass_edu/Juhyeon/FNT_data'
