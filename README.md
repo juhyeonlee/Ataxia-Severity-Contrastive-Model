@@ -36,7 +36,7 @@ Please contact us if you are interested in accessing the dataset.
 ## Usage
 
 
-###Training the Contrastive Learning Model
+### Training the Contrastive Learning Model
 Run the following command to train the contrastive learning model:
 
 
