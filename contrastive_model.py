@@ -87,7 +87,7 @@ class ContrastiveModel:
                 ts_l = torch.sum(~torch.isnan(x).all(axis=-1), axis=1)
                 min_ts_l = torch.min(ts_l).item()
 
-                crop_l = np.random.randint(low=2 ** (self.temporal_unit + 1), high=min_ts_l+1) 
+                crop_l = np.random.randint(low=2, high=min_ts_l+1)
                 crop_left = np.random.randint(min_ts_l - crop_l + 1) 
                 crop_right = crop_left + crop_l
                 
