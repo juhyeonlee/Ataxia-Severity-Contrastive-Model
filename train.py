@@ -59,5 +59,6 @@ def run_train(config_path):
         print(f"\nTraining time: {datetime.timedelta(seconds=t)}\n")
     print("Finished.")
 
-# Example usage
-# run_train(config_path='config.yaml')
+
+if __name__ == '__main__':
+    run_train(config_path='config.yaml')
