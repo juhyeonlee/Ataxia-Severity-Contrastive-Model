@@ -7,3 +7,4 @@ FNT_data/*
 .idea
 seglen_performance_random_rotall
 .DS_Store
+venv

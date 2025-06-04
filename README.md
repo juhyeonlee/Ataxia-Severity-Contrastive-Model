@@ -1,6 +1,6 @@
 # Contrastive Model for Ataxia Severity Assessment
 
-This repository contains the official implementation of the paper "Contrastive Learning Model for Wearable-based Ataxia Assessment."
+This repository contains the official implementation of the paper "[Contrastive Learning Model for Wearable-based Ataxia Assessment.](https://www.medrxiv.org/content/10.1101/2025.02.28.25323114v1)"
 
 ## Acknowledgments
 The model code is based on the implementation of the paper [TS2Vec: Towards Universal Representation of Time Series (AAAI 22)](https://github.com/zhihanyue/ts2vec), licensed under the MIT License.
@@ -56,3 +56,5 @@ To evaluate the trained model on downstream tasks, such as ataxia severity asses
 ```
 Downstream_task.ipynb
 ```
+
+We also provided the trained models for each segment length, with five models (one for each fold in five-fold cross-validation) stored in the ```checkpoints``` folder.
